@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>雲林縣數位學習推動辦公室</title>
+</head>
+<body>
+<style>
+:root{
+  --plane:#f6f7f6; --surface:#fcfcfb; --surface-2:#f1f2f0;
+  --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --hair:rgba(11,11,11,.10);
+  --brand:#1c5cab; --brand-strong:#104281; --brand-soft:#e7effa;
+  --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#4a3aa7;
+  --good:#0ca30c; --good-text:#006300; --warn:#fab219; --serious:#ec835a; --crit:#d03b3b;
+  --chip-good-bg:#e6f4e6; --chip-warn-bg:#fdf3dc; --chip-crit-bg:#fbe7e7; --chip-info-bg:#e7effa;
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --plane:#0d0d0d; --surface:#1a1a19; --surface-2:#232322;
+    --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --grid:#2c2c2a; --baseline:#383835; --hair:rgba(255,255,255,.10);
+    --brand:#3987e5; --brand-strong:#86b6ef; --brand-soft:#16233a;
+    --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#9085e9;
+    --good:#0ca30c; --good-text:#0ca30c;
+    --chip-good-bg:#12280f; --chip-warn-bg:#2e2410; --chip-crit-bg:#331313; --chip-info-bg:#16233a;
+  }
+}
+:root[data-theme="light"]{
+  --plane:#f6f7f6; --surface:#fcfcfb; --surface-2:#f1f2f0;
+  --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --grid:#e1e0d9; --baseline:#c3c2b7; --hair:rgba(11,11,11,.10);
+  --brand:#1c5cab; --brand-strong:#104281; --brand-soft:#e7effa;
+  --s1:#2a78d6; --s2:#1baf7a; --s3:#eda100; --s4:#4a3aa7;
+  --good:#0ca30c; --good-text:#006300;
+  --chip-good-bg:#e6f4e6; --chip-warn-bg:#fdf3dc; --chip-crit-bg:#fbe7e7; --chip-info-bg:#e7effa;
+}
+:root[data-theme="dark"]{
+  --plane:#0d0d0d; --surface:#1a1a19; --surface-2:#232322;
+  --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+  --grid:#2c2c2a; --baseline:#383835; --hair:rgba(255,255,255,.10);
+  --brand:#3987e5; --brand-strong:#86b6ef; --brand-soft:#16233a;
+  --s1:#3987e5; --s2:#199e70; --s3:#c98500; --s4:#9085e9;
+  --good:#0ca30c; --good-text:#0ca30c;
+  --chip-good-bg:#12280f; --chip-warn-bg:#2e2410; --chip-crit-bg:#331313; --chip-info-bg:#16233a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--plane);color:var(--ink);
+  font-family:"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,sans-serif;
+  font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+
+/* ── Header ─────────────────────────────── */
+.masthead{background:var(--surface);border-bottom:1px solid var(--hair);position:sticky;top:0;z-index:40}
+.mast-inner{max-width:1120px;margin:0 auto;padding:14px 24px 0;display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
+.brand-block{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.seal{width:42px;height:42px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;
+  font-weight:700;font-size:15px;letter-spacing:1px;flex:none}
+.brand-name{font-size:19px;font-weight:700;line-height:1.25;text-wrap:balance}
+.brand-sub{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+nav.tabs{display:flex;gap:2px;margin-left:auto;overflow-x:auto;max-width:100%}
+nav.tabs button{appearance:none;border:0;background:none;color:var(--ink-2);font:inherit;font-size:14.5px;
+  padding:10px 14px 12px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+nav.tabs button:hover{color:var(--ink)}
+nav.tabs button[aria-selected="true"]{color:var(--brand);border-bottom-color:var(--brand);font-weight:700}
+
+/* ── Layout ─────────────────────────────── */
+main{max-width:1120px;margin:0 auto;padding:28px 24px 64px}
+section.view{display:none}
+section.view.active{display:block}
+.view-head{margin:4px 0 22px}
+.eyebrow{font-size:11px;letter-spacing:.16em;color:var(--brand);font-weight:700;text-transform:uppercase}
+h1{font-size:26px;font-weight:700;margin:2px 0 6px;line-height:1.3;text-wrap:balance}
+.lede{color:var(--ink-2);max-width:44em;margin:0}
+h2{font-size:18px;font-weight:700;margin:0 0 4px}
+h3{font-size:15.5px;font-weight:700;margin:0 0 4px}
+.card{background:var(--surface);border:1px solid var(--hair);border-radius:var(--radius);padding:20px 22px}
+.card + .card{margin-top:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media (max-width:860px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.card-sub{color:var(--muted);font-size:13px;margin:0 0 14px}
+.note{color:var(--ink-2);font-size:13.5px}
+ul.tight{margin:8px 0 0;padding-left:1.3em}
+ul.tight li{margin:4px 0}
+ol.tight{margin:8px 0 0;padding-left:1.4em}
+ol.tight li{margin:4px 0}
+
+/* ── Stat tiles ─────────────────────────── */
+.stat-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:16px}
+@media (max-width:960px){.stat-row{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--hair);border-radius:var(--radius);padding:16px 18px 14px}
+.stat .k{font-size:12.5px;color:var(--muted)}
+.stat .v{font-size:30px;font-weight:700;line-height:1.15;letter-spacing:-.01em}
+.stat .d{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+
+/* ── Chips / badges ─────────────────────── */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;border-radius:999px;
+  padding:2px 10px;white-space:nowrap}
+.chip::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.chip.ok{color:var(--good-text);background:var(--chip-good-bg)}
+.chip.pend{color:#8a6100;background:var(--chip-warn-bg)}
+:root[data-theme="dark"] .chip.pend{color:var(--warn)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .chip.pend{color:var(--warn)}}
+.chip.miss{color:var(--crit);background:var(--chip-crit-bg)}
+.chip.info{color:var(--brand);background:var(--chip-info-bg)}
+.chip.plain::before{display:none}
+.badge-demo{display:inline-block;font-size:11.5px;font-weight:700;color:#8a6100;background:var(--chip-warn-bg);
+  border:1px solid var(--warn);border-radius:6px;padding:1px 8px;vertical-align:middle}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badge-demo{color:var(--warn)}}
+:root[data-theme="dark"] .badge-demo{color:var(--warn)}
+
+/* ── Tables ─────────────────────────────── */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--hair);border-radius:var(--radius);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-size:12px;color:var(--muted);text-align:left;font-weight:600;letter-spacing:.04em;
+  padding:9px 12px;border-bottom:1px solid var(--grid);background:var(--surface-2);white-space:nowrap;position:sticky;top:0}
+td{padding:8px 12px;border-bottom:1px solid var(--grid);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tbody tr:hover{background:var(--surface-2)}
+.tbl-scroll{max-height:430px;overflow-y:auto}
+.dim{color:var(--muted)}
+
+/* ── Controls ───────────────────────────── */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 12px}
+input[type="search"]{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--baseline);border-radius:8px;padding:7px 12px;min-width:220px}
+.seg{display:inline-flex;border:1px solid var(--baseline);border-radius:8px;overflow:hidden}
+.seg button{appearance:none;border:0;background:var(--surface);color:var(--ink-2);font:inherit;font-size:13px;
+  padding:6px 12px;cursor:pointer;border-right:1px solid var(--baseline)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--brand);color:#fff;font-weight:600}
+.btn{display:inline-block;font:inherit;font-size:14px;font-weight:600;color:#fff;background:var(--brand);
+  border:0;border-radius:8px;padding:8px 16px;cursor:pointer}
+.btn.ghost{background:none;color:var(--brand);border:1px solid var(--brand)}
+
+/* ── Charts ─────────────────────────────── */
+.chart-box{position:relative}
+.chart-box svg{display:block;width:100%;height:auto}
+.viz-tip{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--plane);
+  font-size:12.5px;line-height:1.5;border-radius:7px;padding:6px 10px;max-width:260px;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;transition:opacity .08s}
+.viz-tip b{font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink-2);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;flex:none}
+
+/* ── Flow / steps ───────────────────────── */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;counter-reset:step}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+.step{background:var(--surface);border:1px solid var(--hair);border-radius:var(--radius);padding:14px 16px;counter-increment:step}
+.step::before{content:counter(step);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;
+  background:var(--brand);color:#fff;font-size:13px;font-weight:700;margin-bottom:8px}
+.step p{margin:2px 0 0;font-size:13.5px;color:var(--ink-2)}
+
+/* ── Doc list / downloads ───────────────── */
+.doclist{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.doc{display:flex;align-items:center;gap:12px;background:var(--surface-2);border:1px solid var(--hair);
+  border-radius:8px;padding:10px 14px;font-size:13.5px}
+.doc .ext{flex:none;font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--brand);
+  border:1px solid var(--brand);border-radius:5px;padding:1px 6px}
+.doc .nm{font-weight:600}
+.doc .meta{color:var(--muted);font-size:12px;margin-left:auto;white-space:nowrap}
+
+/* ── Alert / callout ────────────────────── */
+.callout{border-left:4px solid var(--brand);background:var(--brand-soft);border-radius:0 8px 8px 0;
+  padding:12px 16px;font-size:13.5px;margin:14px 0 0}
+.callout.amber{border-left-color:var(--warn);background:var(--chip-warn-bg)}
+
+/* ── Footer ─────────────────────────────── */
+footer{border-top:1px solid var(--hair);background:var(--surface);margin-top:20px}
+.foot-inner{max-width:1120px;margin:0 auto;padding:26px 24px 34px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:24px;font-size:13.5px}
+@media (max-width:860px){.foot-inner{grid-template-columns:1fr}}
+.foot-inner h4{font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin:0 0 8px}
+.foot-inner ul{list-style:none;margin:0;padding:0}
+.foot-inner li{margin:5px 0}
+.copyright{max-width:1120px;margin:0 auto;padding:0 24px 26px;font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<header class="masthead">
+  <div class="mast-inner">
+    <div class="brand-block">
+      <div class="seal">雲</div>
+      <div>
+        <div class="brand-name">雲林縣數位學習推動辦公室</div>
+        <div class="brand-sub">Yunlin County Digital Learning Promotion Office</div>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="主選單">
+      <button role="tab" data-view="dash" aria-selected="true">儀錶板總覽</button>
+      <button role="tab" data-view="mdm" aria-selected="false">MDM 載具管理</button>
+      <button role="tab" data-view="obs" aria-selected="false">公開觀課</button>
+      <button role="tab" data-view="relief" aria-selected="false">減授課調查</button>
+      <button role="tab" data-view="acct" aria-selected="false">帳號權限</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══════════ 儀錶板總覽 ═══════════ -->
+<section class="view active" id="view-dash" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">County Dashboard</div>
+    <h1>全縣數位學習大數據儀錶板</h1>
+    <p class="lede">彙整雲林縣參與「推動中小學數位學習精進方案」各級學校之基礎統計，資料來源為 114 學年度學校師生人數統計表（統計基準日 114.12.23，排除退出計畫學校）。</p>
+  </div>
+
+  <div class="stat-row" id="statRow"></div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2>各鄉鎮市計畫學校數</h2>
+      <p class="card-sub">滑鼠移至長條可檢視該鄉鎮學校數與學生數</p>
+      <div class="chart-box" id="townChart"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="card">
+        <h2>地區屬性分布</h2>
+        <p class="card-sub">依教育部偏遠地區學校分級</p>
+        <div class="chart-box" id="areaChart"></div>
+        <div class="legend" id="areaLegend"></div>
+      </div>
+      <div class="card">
+        <h2>學制別學校數</h2>
+        <p class="card-sub">高中附設國中部分列計算</p>
+        <div class="chart-box" id="lvlChart"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>全縣學校基本資料查詢</h2>
+    <p class="card-sub">114 學年度班級數、學生數、教師數（點欄位名稱可排序）</p>
+    <div class="toolbar">
+      <input type="search" id="schSearch" placeholder="搜尋校名或鄉鎮…" aria-label="搜尋學校">
+      <div class="seg" id="areaFilter" role="group" aria-label="地區屬性篩選">
+        <button aria-pressed="true" data-a="">全部</button>
+        <button aria-pressed="false" data-a="一般">一般</button>
+        <button aria-pressed="false" data-a="偏遠">偏遠</button>
+        <button aria-pressed="false" data-a="非山非市">非山非市</button>
+      </div>
+      <span class="note" id="schCount"></span>
+      <button class="btn ghost" id="schCsv" type="button">匯出 CSV</button>
+    </div>
+    <div class="tbl-wrap tbl-scroll">
+      <table id="schTable">
+        <thead><tr>
+          <th data-k="town">鄉鎮市</th><th data-k="name">學校名稱</th><th data-k="area">地區屬性</th>
+          <th class="num" data-k="cls">班級數</th><th class="num" data-k="stu">學生數</th><th class="num" data-k="tea">教師數</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ MDM 載具管理 ═══════════ -->
+<section class="view" id="view-mdm" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">Mobile Device Management</div>
+    <h1>MDM 載具管理與使用率分析</h1>
+    <p class="lede">依教育部「學習載具管理系統」規範，掌握全縣學習載具之派發、納管與課堂使用情形。本頁為平台框架，使用率數據待介接教育部 MDM 系統後自動更新。</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>iPad 載具</h3>
+      <p class="note">透過 Apple School Manager 搭配 Jamf Pro 進行納管、App 派送與遺失鎖定。</p>
+      <p class="note" style="margin-top:8px"><span class="chip info plain">納管數量：介接中</span></p>
+    </div>
+    <div class="card">
+      <h3>Chromebook 載具</h3>
+      <p class="note">透過 Google Workspace 管理控制台（Google Admin）進行政策派送與使用報告。</p>
+      <p class="note" style="margin-top:8px"><span class="chip info plain">納管數量：介接中</span></p>
+    </div>
+    <div class="card">
+      <h3>Windows 載具</h3>
+      <p class="note">透過 Microsoft Intune 進行裝置設定、應用程式部署與合規性管理。</p>
+      <p class="note" style="margin-top:8px"><span class="chip info plain">納管數量：介接中</span></p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>每月載具使用率趨勢 <span class="badge-demo">示意資料</span></h2>
+    <p class="card-sub">介接教育部 MDM 數據後，將以「當月有使用紀錄之載具數 ÷ 納管載具總數」按月呈現；下圖為版面示意，非實際數據。</p>
+    <div class="chart-box" id="mdmChart"></div>
+    <div class="legend" id="mdmLegend"></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <h2>載具管理待辦與規劃</h2>
+      <ul class="tight">
+        <li>盤點各校載具財產清冊，統一序號建檔格式。</li>
+        <li>申請教育部學習載具管理系統（mdm.edu.tw）縣市管理權限。</li>
+        <li>介接 API 取得各校載具納管率、使用率月報。</li>
+        <li>建立低使用率學校預警名單，供數辦夥伴入校輔導參考。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>相關系統連結</h2>
+      <div class="doclist">
+        <a class="doc" href="https://mdm.edu.tw/" target="_blank" rel="noopener"><span class="ext">WEB</span><span class="nm">教育部學習載具管理系統</span><span class="meta">mdm.edu.tw</span></a>
+        <a class="doc" href="https://pads.moe.edu.tw/" target="_blank" rel="noopener"><span class="ext">WEB</span><span class="nm">數位學習精進方案入口網</span><span class="meta">pads.moe.edu.tw</span></a>
+        <a class="doc" href="https://adl.edu.tw/" target="_blank" rel="noopener"><span class="ext">WEB</span><span class="nm">教育部因材網</span><span class="meta">adl.edu.tw</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 公開觀課 ═══════════ -->
+<section class="view" id="view-obs" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">Open Classroom Observation</div>
+    <h1>公開觀課入校輔導</h1>
+    <p class="lede">每年依「推動中小學數位學習精進方案」辦理公開觀課入校輔導，深化教師數位工具與生成式 AI 融入教學之能力，並落實「自學、共學、互學、導學」四學模式。</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h2>114 年實施計畫展延</h2>
+      <p class="card-sub">115 年 2 月～5 月（114 學年度第二學期）</p>
+      <ul class="tight">
+        <li><b>國中小</b>：預計入校 30 所，分兩種模式辦理。</li>
+        <li><b>高中</b>：預計入校 3 所，安排兩次議課與一次觀課。</li>
+        <li><b>模式 1</b>（數辦入校）：學校安排同日說、觀、議課，領域輔導專家與數辦人員入校一次。</li>
+        <li><b>模式 2</b>（輔導團協作）：各領域輔導團安排備課日，另擇日觀、議課，入校一至二次。</li>
+        <li>參與人員惠予公假登記暨課務排代，有功人員依縣府獎懲標準敘獎。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>115 年度實施計畫</h2>
+      <p class="card-sub">115 年 6 月 1 日～10 月 31 日</p>
+      <ul class="tight">
+        <li>115 學年度第一學期預計入校 11 所，領域輔導專家與數辦人員各一位入校。</li>
+        <li>觀課主軸：<b>「大屏加小平」智慧課堂</b>——智慧黑板全班引導，結合學生平板個別任務與即時回饋。</li>
+        <li>展現四學歷程，累積在地化數位教學資源庫（教學設計與影片紀錄）。</li>
+        <li>承辦單位：雲林縣越港國小；主辦單位：雲林縣政府、雲林縣數位學習推動辦公室。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>學校所需填報資料</h2>
+    <div class="steps" style="margin-top:12px">
+      <div class="step"><h3>觀課意願調查</h3><p>回報參加意願、適合入校之月份與領域。</p></div>
+      <div class="step"><h3>觀課日期與場域</h3><p>提供觀課日期、時間、授課班級與觀課場域安排。</p></div>
+      <div class="step"><h3>教學設計</h3><p>觀課前上傳教案／簡要教學設計，供專家備課參考。</p></div>
+      <div class="step"><h3>觀課紀錄與回饋</h3><p>觀課後繳交觀課紀錄表及回饋意見，供成效統計分析。</p></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>114 年展延入校行程一覽（30 校）</h2>
+    <p class="card-sub">備課日、觀課日與輔導專家由學校及輔導團確定後更新</p>
+    <div class="toolbar">
+      <div class="seg" id="obsFilter" role="group" aria-label="入校計畫篩選">
+        <button aria-pressed="true" data-m="">全部</button>
+        <button aria-pressed="false" data-m="數辦">數辦入校</button>
+        <button aria-pressed="false" data-m="輔導團">輔導團協作</button>
+      </div>
+      <span class="note" id="obsCount"></span>
+      <button class="btn ghost" id="obsCsv" type="button">匯出 CSV</button>
+    </div>
+    <div class="tbl-wrap tbl-scroll">
+      <table id="obsTable">
+        <thead><tr><th>序</th><th>鄉鎮</th><th>學校</th><th>領域</th><th>備課日</th><th>觀課日</th><th>入校計畫</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>辦法與文件下載</h2>
+    <div class="doclist">
+      <div class="doc"><span class="ext">DOCX</span><span class="nm">雲林縣「推動中小學數位學習精進方案」114年中小學實施計畫展延－公開觀課入校輔導實施計畫</span><span class="meta">114 展延</span></div>
+      <div class="doc"><span class="ext">DOCX</span><span class="nm">雲林縣「115年度中小學數位學習實施計畫」－公開觀課入校輔導實施計畫</span><span class="meta">115 年度</span></div>
+    </div>
+    <div class="callout">文件下載連結將於後台檔案庫建置完成後開放；目前請洽計畫承辦人索取。</div>
+  </div>
+</section>
+
+<!-- ═══════════ 減授課調查 ═══════════ -->
+<section class="view" id="view-relief" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">Teaching-load Reduction Survey</div>
+    <h1>減授課狀況調查與繳交彙整</h1>
+    <p class="lede">依「推動中小學數位學習精進方案」114 年中小學實施計畫展延，調查各校減授課經費實際支用情形，並彙整年度執行繳交狀況。計畫期程：115 年 2 月 1 日至 5 月 31 日（學期間）。</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>調查表填報欄位</h3>
+      <ul class="tight" style="font-size:13.5px">
+        <li>計畫期程內實際執行減授課<b>節數</b></li>
+        <li>實際支用減授課<b>總金額（A）</b></li>
+        <li>二代健保補充保費（A × 2.11%）</li>
+        <li>勞保、勞退費用</li>
+        <li>以上皆為必填，如無請填 0</li>
+      </ul>
+      <div class="callout" style="margin-top:12px">代課費每節：國小 405 元、國中 455 元、高中 505 元。填畢須經承辦人、教務主任、會計主任、校長核章。</div>
+    </div>
+    <div class="card">
+      <h3>年度執行繳交項目</h3>
+      <ol class="tight" style="font-size:13.5px">
+        <li>核定金額使用狀況</li>
+        <li>第一期、第二期領據</li>
+        <li>收支結報表</li>
+      </ol>
+      <h3 style="margin-top:14px">不請領確認書</h3>
+      <ol class="tight" style="font-size:13.5px">
+        <li>線上填寫後產製文件供列印</li>
+        <li>列印核章完成後上傳檔案</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>收支結報表格式</h3>
+      <p class="note">提供每年度名稱及格式，統一由本站下載使用。</p>
+      <div class="doclist">
+        <div class="doc"><span class="ext">DOCX</span><span class="nm">114年展延減授課經費支用調查表</span></div>
+        <div class="doc"><span class="ext">XLSX</span><span class="nm">收支結報表（年度格式）</span></div>
+        <div class="doc"><span class="ext">PDF</span><span class="nm">不請領確認書（產製範本）</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>各校繳交狀況彙整表 <span class="badge-demo">示意資料</span></h2>
+    <p class="card-sub">正式上線後由各校帳號填報自動彙整；下表狀態為系統畫面示意，非實際繳交情形。</p>
+    <div class="stat-row" style="grid-template-columns:repeat(4,1fr)" id="reliefStats"></div>
+    <div class="toolbar">
+      <input type="search" id="reliefSearch" placeholder="搜尋校名…" aria-label="搜尋繳交狀況">
+      <div class="seg" id="reliefFilter" role="group" aria-label="繳交狀態篩選">
+        <button aria-pressed="true" data-s="">全部</button>
+        <button aria-pressed="false" data-s="ok">已完成</button>
+        <button aria-pressed="false" data-s="pend">部分繳交</button>
+        <button aria-pressed="false" data-s="miss">未繳交</button>
+      </div>
+      <button class="btn ghost" id="reliefCsv" type="button">匯出 CSV</button>
+    </div>
+    <div class="tbl-wrap tbl-scroll">
+      <table id="reliefTable">
+        <thead><tr>
+          <th>學校</th><th class="num">執行節數</th><th class="num">支用金額(元)</th>
+          <th>第一期領據</th><th>第二期領據</th><th>收支結報表</th><th>整體狀態</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 帳號權限 ═══════════ -->
+<section class="view" id="view-acct" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">Accounts &amp; Permissions</div>
+    <h1>帳號權限建置</h1>
+    <p class="lede">平台帳號分四級授權，共預估建置 219 組帳號，對應全縣 198 所計畫學校之填報作業與數辦端之審閱管理。</p>
+  </div>
+
+  <div class="stat-row" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat"><div class="k">各級學校帳號</div><div class="v">198</div><div class="d">填報、觀看該校相關資訊</div></div>
+    <div class="stat"><div class="k">主管及數辦夥伴</div><div class="v">13</div><div class="d">觀看、篩選、註記全縣填報狀況</div></div>
+    <div class="stat"><div class="k">計畫承辦人</div><div class="v">6</div><div class="d">編修、匯出、寄送提醒 email</div></div>
+    <div class="stat"><div class="k">系統管理員</div><div class="v">2</div><div class="d">帳號管理、系統功能維護</div></div>
+  </div>
+
+  <div class="card">
+    <h2>權限功能對照表</h2>
+    <div class="tbl-wrap" style="margin-top:12px">
+      <table>
+        <thead><tr><th>功能</th><th>各級學校</th><th>主管及數辦夥伴</th><th>計畫承辦人</th><th>系統管理員</th></tr></thead>
+        <tbody>
+          <tr><td>填報本校資料</td><td>✓</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td></tr>
+          <tr><td>觀看本校相關資訊</td><td>✓</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>觀看全縣各校填報狀況</td><td class="dim">—</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>篩選、註記填報狀況</td><td class="dim">—</td><td>✓</td><td>✓</td><td>✓</td></tr>
+          <tr><td>編修、匯出資料</td><td class="dim">—</td><td class="dim">—</td><td>✓</td><td>✓</td></tr>
+          <tr><td>寄送提醒 email</td><td class="dim">—</td><td class="dim">—</td><td>✓</td><td>✓</td></tr>
+          <tr><td>管理各級帳號、維護系統功能</td><td class="dim">—</td><td class="dim">—</td><td class="dim">—</td><td>✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>帳號申請與開通流程</h2>
+    <div class="steps" style="margin-top:12px">
+      <div class="step"><h3>造冊申請</h3><p>各校填報帳號申請表，由數辦統一造冊。</p></div>
+      <div class="step"><h3>權限核定</h3><p>計畫承辦人依角色核定權限範圍。</p></div>
+      <div class="step"><h3>帳號開通</h3><p>系統管理員建置帳號並寄送啟用通知。</p></div>
+      <div class="step"><h3>異動管理</h3><p>人員異動時申請移轉或停用，每學年清查一次。</p></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <h4>雲林縣數位學習推動辦公室</h4>
+      <p class="note" style="margin:0">承辦學校：雲林縣越港國小<br>指導單位：教育部｜主辦單位：雲林縣政府</p>
+    </div>
+    <div>
+      <h4>相關連結</h4>
+      <ul>
+        <li><a href="https://pads.moe.edu.tw/" target="_blank" rel="noopener">數位學習精進方案入口網</a></li>
+        <li><a href="https://mdm.edu.tw/" target="_blank" rel="noopener">教育部學習載具管理系統</a></li>
+        <li><a href="https://adl.edu.tw/" target="_blank" rel="noopener">教育部因材網</a></li>
+        <li><a href="https://www.sdc.org.tw/" target="_blank" rel="noopener">校園數位內容與教學軟體</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>平台資訊</h4>
+      <ul>
+        <li>資料基準：114 學年度統計（114.12.23）</li>
+        <li>MDM 使用率：教育部系統介接中</li>
+        <li>繳交彙整：後台填報系統建置中</li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">© 雲林縣數位學習推動辦公室｜本平台統計資料僅供計畫推動參考，正式數據以教育部及縣府公告為準。</div>
+</footer>
+
+<div class="viz-tip" id="vizTip" role="status" aria-hidden="true"></div>
+
+<script src="data/config.js"></script>
+<script src="data/schools.js"></script>
+<script src="data/obs-schedule.js"></script>
+<script src="data/mdm-usage.js"></script>
+<script src="data/relief-status.js"></script>
+<script>
+"use strict";
+/* ── 資料 ─────────────────────────────── */
+const SCHOOLS = DLO.schools;
+const ACTIVE = SCHOOLS.filter(s => s.stu !== "" && s.stu != null && !/退出/.test(s.note || ""));
+ACTIVE.forEach(s => { s.cls = +s.cls; s.stu = +s.stu; s.tea = +s.tea; });
+
+const fmt = n => n.toLocaleString("zh-Hant-TW");
+const sum = k => ACTIVE.reduce((a, s) => a + s[k], 0);
+function exportCSV(filename, headers, rows) {
+  const esc = v => `"${String(v == null ? "" : v).replace(/"/g, '""')}"`;
+  const csv = "﻿" + [headers, ...rows].map(r => r.map(esc).join(",")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+  a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+}
+
+/* ── 統計磚 ───────────────────────────── */
+const towns = {};
+ACTIVE.forEach(s => { (towns[s.town] = towns[s.town] || { n: 0, stu: 0 }); towns[s.town].n++; towns[s.town].stu += s.stu; });
+const areaCnt = {};
+ACTIVE.forEach(s => areaCnt[s.area] = (areaCnt[s.area] || 0) + 1);
+const lvlOf = s => /\(高中\)/.test(s.name) ? "高中" : /國中/.test(s.name) ? "國中" : "國小";
+const lvlCnt = {};
+ACTIVE.forEach(s => lvlCnt[lvlOf(s)] = (lvlCnt[lvlOf(s)] || 0) + 1);
+
+document.getElementById("statRow").innerHTML = [
+  ["計畫學校數", fmt(ACTIVE.length), "所（另 " + (SCHOOLS.length - ACTIVE.length) + " 校退出計畫）"],
+  ["學生總數", fmt(sum("stu")), "人"],
+  ["教師總數", fmt(sum("tea")), "人"],
+  ["班級總數", fmt(sum("cls")), "班"],
+  ["偏遠地區學校", fmt(areaCnt["偏遠"] || 0), "所，占 " + Math.round((areaCnt["偏遠"] || 0) / ACTIVE.length * 100) + "%"]
+].map(([k, v, d]) => `<div class="stat"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
+
+/* ── Tooltip ─────────────────────────── */
+const tip = document.getElementById("vizTip");
+function showTip(html, ev) {
+  tip.innerHTML = html; tip.style.opacity = 1; tip.setAttribute("aria-hidden", "false");
+  const pad = 14, w = tip.offsetWidth;
+  let x = ev.clientX + pad, y = ev.clientY - 10;
+  if (x + w > innerWidth - 8) x = ev.clientX - w - pad;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function hideTip() { tip.style.opacity = 0; tip.setAttribute("aria-hidden", "true"); }
+
+/* ── 鄉鎮長條圖（水平、單一序列） ──────── */
+(function () {
+  const data = Object.entries(towns).sort((a, b) => b[1].n - a[1].n);
+  const rowH = 26, mL = 64, mR = 46, W = 520, H = data.length * rowH + 26;
+  const max = Math.max(...data.map(d => d[1].n));
+  const x = v => mL + v / max * (W - mL - mR);
+  let g = "";
+  for (let t = 0; t <= max; t += 5) {
+    g += `<line x1="${x(t)}" y1="10" x2="${x(t)}" y2="${H - 16}" stroke="var(--grid)" stroke-width="1"/>` +
+         `<text x="${x(t)}" y="${H - 3}" text-anchor="middle" font-size="10.5" fill="var(--muted)">${t}</text>`;
+  }
+  const bars = data.map(([name, d], i) => {
+    const y = 12 + i * rowH, bw = Math.max(x(d.n) - mL, 2);
+    return `<text x="${mL - 8}" y="${y + 13}" text-anchor="end" font-size="11.5" fill="var(--ink-2)">${name}</text>` +
+      `<path d="M${mL},${y} h${bw - 4} a4,4 0 0 1 4,4 v${10} a4,4 0 0 1 -4,4 h-${bw - 4} z" fill="var(--s1)" class="hv" data-i="${i}"/>` +
+      `<text x="${mL + bw + 6}" y="${y + 13}" font-size="11" fill="var(--ink-2)" style="font-variant-numeric:tabular-nums">${d.n}</text>`;
+  }).join("");
+  const box = document.getElementById("townChart");
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="各鄉鎮市計畫學校數長條圖">
+    ${g}<line x1="${mL}" y1="10" x2="${mL}" y2="${H - 16}" stroke="var(--baseline)" stroke-width="1"/>${bars}</svg>`;
+  box.querySelectorAll(".hv").forEach(el => {
+    el.addEventListener("mousemove", ev => {
+      const [name, d] = data[+el.dataset.i];
+      showTip(`${name}<br>學校數 <b>${d.n}</b> 所｜學生 <b>${fmt(d.stu)}</b> 人`, ev);
+    });
+    el.addEventListener("mouseleave", hideTip);
+  });
+})();
+
+/* ── 地區屬性甜甜圈 ───────────────────── */
+(function () {
+  const order = ["偏遠", "非山非市", "一般"];
+  const cols = ["var(--s1)", "var(--s2)", "var(--s3)"];
+  const total = ACTIVE.length;
+  const R = 66, r = 42, cx = 90, cy = 88;
+  let a0 = -Math.PI / 2, paths = "", labels = "";
+  order.forEach((k, i) => {
+    const v = areaCnt[k] || 0, a1 = a0 + v / total * Math.PI * 2;
+    const big = (a1 - a0) > Math.PI ? 1 : 0;
+    const p = (a, rad) => `${cx + Math.cos(a) * rad},${cy + Math.sin(a) * rad}`;
+    paths += `<path d="M${p(a0, R)} A${R},${R} 0 ${big} 1 ${p(a1, R)} L${p(a1, r)} A${r},${r} 0 ${big} 0 ${p(a0, r)} z"
+      fill="${cols[i]}" stroke="var(--surface)" stroke-width="2" class="hv" data-k="${k}" data-v="${v}"/>`;
+    const mid = (a0 + a1) / 2, lx = cx + Math.cos(mid) * (R + 14), ly = cy + Math.sin(mid) * (R + 14);
+    labels += `<text x="${lx}" y="${ly + 4}" text-anchor="${lx > cx ? "start" : "end"}" font-size="11.5" fill="var(--ink-2)">${v} 所</text>`;
+    a0 = a1;
+  });
+  const box = document.getElementById("areaChart");
+  box.innerHTML = `<svg viewBox="-16 0 336 176" role="img" aria-label="地區屬性分布圖">${paths}${labels}
+    <text x="${cx}" y="${cy - 2}" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink)">${total}</text>
+    <text x="${cx}" y="${cy + 16}" text-anchor="middle" font-size="10.5" fill="var(--muted)">計畫學校</text></svg>`;
+  document.getElementById("areaLegend").innerHTML = order.map((k, i) =>
+    `<span><i style="background:${cols[i]}"></i>${k} ${areaCnt[k] || 0} 所（${Math.round((areaCnt[k] || 0) / total * 100)}%）</span>`).join("");
+  box.querySelectorAll(".hv").forEach(el => {
+    el.addEventListener("mousemove", ev => showTip(`${el.dataset.k}地區<br><b>${el.dataset.v}</b> 所（${Math.round(el.dataset.v / total * 100)}%）`, ev));
+    el.addEventListener("mouseleave", hideTip);
+  });
+})();
+
+/* ── 學制別長條 ───────────────────────── */
+(function () {
+  const order = ["國小", "國中", "高中"];
+  const max = Math.max(...order.map(k => lvlCnt[k] || 0));
+  const W = 320, mL = 44, mR = 44, rowH = 30, H = order.length * rowH + 8;
+  const bars = order.map((k, i) => {
+    const v = lvlCnt[k] || 0, y = 4 + i * rowH, bw = Math.max(v / max * (W - mL - mR), 2);
+    return `<text x="${mL - 8}" y="${y + 15}" text-anchor="end" font-size="12" fill="var(--ink-2)">${k}</text>` +
+      `<path d="M${mL},${y} h${bw - 4} a4,4 0 0 1 4,4 v${12} a4,4 0 0 1 -4,4 h-${bw - 4} z" fill="var(--s1)" class="hv" data-k="${k}" data-v="${v}"/>` +
+      `<text x="${mL + bw + 6}" y="${y + 15}" font-size="11.5" fill="var(--ink-2)" style="font-variant-numeric:tabular-nums">${v} 所</text>`;
+  }).join("");
+  const box = document.getElementById("lvlChart");
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="學制別學校數">${bars}
+    <line x1="${mL}" y1="2" x2="${mL}" y2="${H - 4}" stroke="var(--baseline)" stroke-width="1"/></svg>`;
+  box.querySelectorAll(".hv").forEach(el => {
+    el.addEventListener("mousemove", ev => showTip(`${el.dataset.k}<br><b>${el.dataset.v}</b> 所`, ev));
+    el.addEventListener("mouseleave", hideTip);
+  });
+})();
+
+/* ── 學校查詢表 ───────────────────────── */
+(function () {
+  let sortK = "stu", sortDir = -1, areaF = "", q = "", lastRows = [];
+  const tbody = document.querySelector("#schTable tbody");
+  function render() {
+    let rows = ACTIVE.filter(s => (!areaF || s.area === areaF) &&
+      (!q || s.name.includes(q) || s.town.includes(q)));
+    rows.sort((a, b) => {
+      const va = a[sortK], vb = b[sortK];
+      return (typeof va === "number" ? va - vb : String(va).localeCompare(vb, "zh-Hant")) * sortDir;
+    });
+    tbody.innerHTML = rows.map(s =>
+      `<tr><td>${s.town}</td><td>${s.name}</td><td>${s.area}</td>
+       <td class="num">${fmt(s.cls)}</td><td class="num">${fmt(s.stu)}</td><td class="num">${fmt(s.tea)}</td></tr>`).join("") ||
+      `<tr><td colspan="6" class="dim">查無符合條件的學校</td></tr>`;
+    document.getElementById("schCount").textContent = "共 " + rows.length + " 所";
+    lastRows = rows;
+  }
+  document.getElementById("schCsv").addEventListener("click", () =>
+    exportCSV("雲林縣計畫學校統計.csv",
+      ["鄉鎮市", "學校名稱", "學校代碼", "地區屬性", "班級數", "學生數", "教師數"],
+      lastRows.map(s => [s.town, s.name, s.code, s.area, s.cls, s.stu, s.tea])));
+  document.getElementById("schSearch").addEventListener("input", e => { q = e.target.value.trim(); render(); });
+  document.querySelectorAll("#areaFilter button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("#areaFilter button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    areaF = b.dataset.a; render();
+  }));
+  document.querySelectorAll("#schTable th").forEach(th => {
+    th.style.cursor = "pointer";
+    th.addEventListener("click", () => {
+      const k = th.dataset.k;
+      if (sortK === k) sortDir *= -1; else { sortK = k; sortDir = k === "town" || k === "name" || k === "area" ? 1 : -1; }
+      render();
+    });
+  });
+  render();
+})();
+
+/* ── MDM 使用率示意折線 ───────────────── */
+(function () {
+  const months = DLO.mdmUsage.months;
+  const palette = ["var(--s1)", "var(--s2)", "var(--s3)", "var(--s4)"];
+  const series = DLO.mdmUsage.series.map((s, i) => ({ name: s.name, col: palette[i % palette.length], v: s.v }));
+  const W = 720, H = 240, mL = 44, mR = 16, mT = 12, mB = 30;
+  const x = i => mL + i / (months.length - 1) * (W - mL - mR);
+  const y = v => mT + (1 - v / 100) * (H - mT - mB);
+  let g = "";
+  for (let t = 0; t <= 100; t += 25) {
+    g += `<line x1="${mL}" y1="${y(t)}" x2="${W - mR}" y2="${y(t)}" stroke="var(--grid)"/>` +
+         `<text x="${mL - 8}" y="${y(t) + 4}" text-anchor="end" font-size="10.5" fill="var(--muted)">${t}%</text>`;
+  }
+  const xl = months.map((m, i) => `<text x="${x(i)}" y="${H - 8}" text-anchor="middle" font-size="10" fill="var(--muted)">${m}</text>`).join("");
+  const lines = series.map(s => {
+    const d = s.v.map((v, i) => (i ? "L" : "M") + x(i) + "," + y(v)).join("");
+    const last = s.v.length - 1;
+    return `<path d="${d}" fill="none" stroke="${s.col}" stroke-width="2" stroke-linejoin="round"/>` +
+      `<circle cx="${x(last)}" cy="${y(s.v[last])}" r="4" fill="${s.col}" stroke="var(--surface)" stroke-width="2"/>` +
+      `<text x="${x(last) - 6}" y="${y(s.v[last]) - 9}" text-anchor="end" font-size="11" font-weight="600" fill="var(--ink-2)">${s.name} ${s.v[last]}%</text>`;
+  }).join("");
+  const box = document.getElementById("mdmChart");
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="每月載具使用率趨勢示意圖">${g}
+    <line x1="${mL}" y1="${y(0)}" x2="${W - mR}" y2="${y(0)}" stroke="var(--baseline)"/>${xl}
+    <g id="mdmHover"></g>${lines}
+    <rect x="${mL}" y="${mT}" width="${W - mL - mR}" height="${H - mT - mB}" fill="transparent" id="mdmHit"/></svg>`;
+  document.getElementById("mdmLegend").innerHTML = series.map(s =>
+    `<span><i style="background:${s.col}"></i>${s.name}</span>`).join("") +
+    `<span class="dim" style="margin-left:auto">單位：使用率 %（示意）</span>`;
+  const hit = document.getElementById("mdmHit"), hov = document.getElementById("mdmHover");
+  hit.addEventListener("mousemove", ev => {
+    const r = hit.getBoundingClientRect();
+    const i = Math.round((ev.clientX - r.left) / r.width * (months.length - 1));
+    const ci = Math.max(0, Math.min(months.length - 1, i));
+    hov.innerHTML = `<line x1="${x(ci)}" y1="${mT}" x2="${x(ci)}" y2="${H - mB}" stroke="var(--baseline)" stroke-dasharray="3,3"/>` +
+      series.map(s => `<circle cx="${x(ci)}" cy="${y(s.v[ci])}" r="3.5" fill="${s.col}" stroke="var(--surface)" stroke-width="2"/>`).join("");
+    showTip(`${months[ci]} 月（示意）<br>` + series.map(s => `${s.name} <b>${s.v[ci]}%</b>`).join("<br>"), ev);
+  });
+  hit.addEventListener("mouseleave", () => { hov.innerHTML = ""; hideTip(); });
+})();
+
+/* ── 觀課行程表 ───────────────────────── */
+(function () {
+  const rows = DLO.obsSchedule;
+  const tbody = document.querySelector("#obsTable tbody");
+  let f = "";
+  function render() {
+    const list = rows.map((r, i) => ({ i: i + 1, r })).filter(o => !f || o.r[3] === f);
+    tbody.innerHTML = list.map(o => {
+      const [town, sch, dom, mode, prepDate, obsDate] = o.r;
+      const prep = prepDate || (mode === "輔導團" ? "待定" : "—");
+      const obs = obsDate || "待定";
+      return `<tr><td class="num">${o.i}</td><td>${town}</td><td>${sch}</td><td>${dom}</td>
+        <td class="dim">${prep}</td><td class="dim">${obs}</td>
+        <td><span class="chip ${mode === "數辦" ? "info" : "ok"} plain">${mode === "數辦" ? "數辦入校" : "輔導團協作"}</span></td></tr>`;
+    }).join("");
+    document.getElementById("obsCount").textContent = "共 " + list.length + " 所";
+  }
+  document.querySelectorAll("#obsFilter button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("#obsFilter button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    f = b.dataset.m; render();
+  }));
+  document.getElementById("obsCsv").addEventListener("click", () =>
+    exportCSV("公開觀課入校行程.csv",
+      ["序", "鄉鎮", "學校", "領域", "備課日", "觀課日", "入校計畫"],
+      rows.map((r, i) => [i + 1, r[0], r[1], r[2], r[4] || "待定", r[5] || "待定", r[3]])));
+  render();
+})();
+
+/* ── 減授課繳交彙整（示意） ────────────── */
+(function () {
+  const demo = DLO.reliefStatus.map(d => {
+    const done = [d.r1, d.r2, d.rpt].filter(Boolean).length;
+    return Object.assign({}, d, { st: done === 3 ? "ok" : done === 0 ? "miss" : "pend" });
+  });
+  const lbl = { ok: "已完成", pend: "部分繳交", miss: "未繳交" };
+  const cnt = { ok: 0, pend: 0, miss: 0 };
+  demo.forEach(d => cnt[d.st]++);
+  document.getElementById("reliefStats").innerHTML = [
+    ["應繳學校" + (DLO.config.reliefDemo ? "（示意）" : ""), demo.length, "所"],
+    ["已完成", cnt.ok, "所"],
+    ["部分繳交", cnt.pend, "所"],
+    ["整體繳交率", Math.round(cnt.ok / demo.length * 100) + "%", "以完成三項為準"]
+  ].map(([k, v, d]) => `<div class="stat"><div class="k">${k}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join("");
+  const tbody = document.querySelector("#reliefTable tbody");
+  let f = "", q = "";
+  const mark = b => b ? `<span class="chip ok plain">✓ 已繳</span>` : `<span class="chip miss plain">✗ 未繳</span>`;
+  function render() {
+    const list = demo.filter(d => (!f || d.st === f) && (!q || d.name.includes(q)));
+    tbody.innerHTML = list.map(d =>
+      `<tr><td>${d.name}</td><td class="num">${d.n ? fmt(d.n) : "—"}</td><td class="num">${d.amt ? fmt(d.amt) : "—"}</td>
+       <td>${mark(d.r1)}</td><td>${mark(d.r2)}</td><td>${mark(d.rpt)}</td>
+       <td><span class="chip ${d.st}">${lbl[d.st]}</span></td></tr>`).join("") ||
+      `<tr><td colspan="7" class="dim">查無符合條件的學校</td></tr>`;
+  }
+  document.getElementById("reliefSearch").addEventListener("input", e => { q = e.target.value.trim(); render(); });
+  document.querySelectorAll("#reliefFilter button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("#reliefFilter button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    f = b.dataset.s; render();
+  }));
+  document.getElementById("reliefCsv").addEventListener("click", () =>
+    exportCSV("減授課繳交彙整.csv",
+      ["學校", "執行節數", "支用金額(元)", "第一期領據", "第二期領據", "收支結報表", "整體狀態"],
+      demo.map(d => [d.name, d.n, d.amt, d.r1 ? "已繳" : "未繳", d.r2 ? "已繳" : "未繳", d.rpt ? "已繳" : "未繳", lbl[d.st]])));
+  render();
+})();
+
+/* ── 示意資料標章（data/config.js 控制） ── */
+if (!DLO.config.mdmDemo) document.querySelectorAll("#view-mdm .badge-demo").forEach(e => e.remove());
+if (!DLO.config.reliefDemo) document.querySelectorAll("#view-relief .badge-demo").forEach(e => e.remove());
+
+/* ── 分頁切換 ─────────────────────────── */
+document.querySelectorAll("nav.tabs button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("nav.tabs button").forEach(x => x.setAttribute("aria-selected", x === b));
+  document.querySelectorAll("section.view").forEach(v => v.classList.toggle("active", v.id === "view-" + b.dataset.view));
+  history.replaceState(null, "", "#" + b.dataset.view);
+  scrollTo({ top: 0 });
+}));
+const h = location.hash.slice(1);
+if (h) { const b = document.querySelector(`nav.tabs button[data-view="${h}"]`); if (b) b.click(); }
+</script>
+
+</body>
+</html>
