@@ -805,6 +805,21 @@ function hideTip() { tip.style.opacity = 0; tip.setAttribute("aria-hidden", "tru
   render();
 })();
 
+/* ── 填報系統入口（data/config.js 的 portalUrl） ── */
+if (DLO.config.portalUrl) {
+  const mk = (txt, cls) => {
+    const a = document.createElement("a");
+    a.href = DLO.config.portalUrl; a.target = "_blank"; a.rel = "noopener";
+    a.className = cls; a.textContent = txt;
+    return a;
+  };
+  const navBtn = mk("填報系統 ↗", "btn");
+  navBtn.style.cssText = "align-self:center;margin-left:12px;margin-bottom:8px;padding:6px 14px";
+  document.querySelector("nav.tabs").after(navBtn);
+  const obsCall = document.querySelector("#view-obs .callout");
+  if (obsCall) obsCall.innerHTML = '觀課日期、場域與教學設計請至 <a href="' + DLO.config.portalUrl + '" target="_blank" rel="noopener"><b>填報系統</b></a> 線上填報（縣網 Google 帳號登入）。';
+}
+
 /* ── 示意資料標章（data/config.js 控制） ── */
 if (!DLO.config.mdmDemo) document.querySelectorAll("#view-mdm .badge-demo").forEach(e => e.remove());
 if (!DLO.config.reliefDemo) document.querySelectorAll("#view-relief .badge-demo").forEach(e => e.remove());

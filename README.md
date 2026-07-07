@@ -11,11 +11,16 @@
 ```
 index.html            網頁本體（版面與程式，平常不需要動）
 data/
-  config.js           年度設定與「示意資料」開關
+  config.js           年度設定、「示意資料」開關、填報系統網址 portalUrl
   schools.js          全縣學校師生統計（每年更新一次）
   obs-schedule.js     公開觀課入校行程（每年依附件一更新）
   mdm-usage.js        MDM 每月載具使用率（介接教育部數據前為示意）
-  relief-status.js    減授課繳交彙整（接後台前為示意）
+  relief-status.js    減授課繳交彙整（可由填報後台一鍵產生）
+backend/              填報後台（Google Apps Script，需另行部署）
+  Code.gs             後台主程式（觀課填報＋減授課調查＋自動彙整＋提醒信）
+  Index.html          後台網頁介面
+  權限表範本.csv       198 校名單＋角色欄，填 Email 後貼入試算表
+  後台建置說明.md      部署步驟與資安檢核表
 ```
 
 ## 日常維護：只改 data/ 裡的檔案
