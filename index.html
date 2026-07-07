@@ -172,6 +172,20 @@ input[type="search"]{font:inherit;font-size:14px;color:var(--ink);background:var
   padding:12px 16px;font-size:13.5px;margin:14px 0 0}
 .callout.amber{border-left-color:var(--warn);background:var(--chip-warn-bg)}
 
+/* ── FAQ / 資源卡 ───────────────────────── */
+details.faq{border:1px solid var(--hair);border-radius:8px;background:var(--surface-2);padding:0;margin:8px 0}
+details.faq summary{cursor:pointer;font-weight:600;font-size:14px;padding:10px 14px;list-style-position:inside}
+details.faq p{margin:0;padding:0 14px 12px;font-size:13.5px;color:var(--ink-2)}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+@media (max-width:860px){.res-grid{grid-template-columns:1fr}}
+.res{border:1px solid var(--hair);border-radius:8px;background:var(--surface-2);padding:12px 14px}
+.res .hd{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.res .nm{font-weight:700;font-size:14.5px}
+.res .cat-tag{font-size:11px;color:var(--brand);border:1px solid var(--brand);border-radius:5px;padding:0 6px}
+.res p{margin:4px 0 8px;font-size:13px;color:var(--ink-2)}
+.res .acts{display:flex;gap:14px;font-size:13px;flex-wrap:wrap}
+.res .login-tag{font-size:12px;color:var(--muted);margin-left:auto}
+
 /* ── Footer ─────────────────────────────── */
 footer{border-top:1px solid var(--hair);background:var(--surface);margin-top:20px}
 .foot-inner{max-width:1120px;margin:0 auto;padding:26px 24px 34px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:24px;font-size:13.5px}
@@ -195,6 +209,9 @@ footer{border-top:1px solid var(--hair);background:var(--surface);margin-top:20p
     <nav class="tabs" role="tablist" aria-label="主選單">
       <button role="tab" data-view="dash" aria-selected="true">儀錶板總覽</button>
       <button role="tab" data-view="mdm" aria-selected="false">MDM 載具管理</button>
+      <button role="tab" data-view="ipad" aria-selected="false">iPad 教學</button>
+      <button role="tab" data-view="board" aria-selected="false">智慧黑板</button>
+      <button role="tab" data-view="soft" aria-selected="false">縣購軟體</button>
       <button role="tab" data-view="obs" aria-selected="false">公開觀課</button>
       <button role="tab" data-view="relief" aria-selected="false">減授課調查</button>
       <button role="tab" data-view="acct" aria-selected="false">帳號權限</button>
@@ -311,6 +328,143 @@ footer{border-top:1px solid var(--hair);background:var(--surface);margin-top:20p
         <a class="doc" href="https://pads.moe.edu.tw/" target="_blank" rel="noopener"><span class="ext">WEB</span><span class="nm">數位學習精進方案入口網</span><span class="meta">pads.moe.edu.tw</span></a>
         <a class="doc" href="https://adl.edu.tw/" target="_blank" rel="noopener"><span class="ext">WEB</span><span class="nm">教育部因材網</span><span class="meta">adl.edu.tw</span></a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ iPad 教學 ═══════════ -->
+<section class="view" id="view-ipad" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">iPad Teaching &amp; Care</div>
+    <h1>iPad 使用教學與維護專區</h1>
+    <p class="lede">給每年新進教師的 iPad 上手指南：從領用、課堂管理到日常維護與報修，一頁看完。全縣 iPad 由數辦透過 Jamf Pro（MDM）統一納管，App 與設定自動派送，教師不需自行管理 Apple 帳號。</p>
+  </div>
+
+  <div class="card">
+    <h2>新進教師快速上手</h2>
+    <div class="steps" style="margin-top:12px">
+      <div class="step"><h3>領用與開機</h3><p>向資訊組領用已納管 iPad，開機連上校內 Wi-Fi，設定與 App 會自動下載，不需輸入帳號密碼。</p></div>
+      <div class="step"><h3>熟悉基本操作</h3><p>觀看數辦 iPad 教學影片，練習多工、分割畫面、截圖與檔案（雲端硬碟）操作。</p></div>
+      <div class="step"><h3>學會課堂管理</h3><p>用 Apple「課堂」App 一鍵開啟指定 App／網頁、檢視學生畫面、鎖定與靜音，掌握全班進度。</p></div>
+      <div class="step"><h3>連上智慧黑板</h3><p>控制中心開「螢幕鏡像」把 iPad 投影到教室大屏，搭配平板推送完成「大屏加小平」智慧課堂。</p></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>教學資源</h2>
+    <p class="card-sub">資源由 data/ipad-resources.js 維護，歡迎提供新資源給數辦增補</p>
+    <div id="ipadLinks"></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <h2>日常維護方式</h2>
+      <ul class="tight">
+        <li><b>電池保養</b>：電量盡量維持在 30–80%，避免長期滿電或沒電存放；假日充電車可斷電。</li>
+        <li><b>清潔</b>：用微濕的無棉絮軟布擦拭，清潔劑不可直接噴在螢幕上；不使用酒精大量擦拭鏡頭與螢幕鍍膜。</li>
+        <li><b>保護</b>：全程使用保護套，避免高溫（車內、窗邊日曬）與潮濕環境。</li>
+        <li><b>充電車管理</b>：iPad 依編號歸位、線材理好；指定專人（或小老師輪值）每日檢查歸還數量與充電狀態。</li>
+        <li><b>系統更新</b>：iPadOS 與 App 由 MDM 統一排程更新，請保持 iPad 連網並定期開機。</li>
+        <li><b>學期末</b>：清點歸還、檢查外觀拍照記錄、儲存空間清理由 MDM 遠端執行。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>故障報修流程</h2>
+      <div class="steps" style="grid-template-columns:1fr;gap:8px;margin-top:12px">
+        <div class="step"><h3>校內初判</h3><p>先重開機、確認 Wi-Fi 與充電；無法排除即通報校內資訊組。</p></div>
+        <div class="step"><h3>MDM 遠端診斷</h3><p>資訊組透過 Jamf Pro 檢視裝置狀態、重新派送設定或遠端重置。</p></div>
+        <div class="step"><h3>保固送修</h3><p>硬體故障由學校依採購合約向廠商報修，勿自行送修以免影響保固。</p></div>
+        <div class="step"><h3>備品與歸還</h3><p>維修期間借用備品機；修復後測試、登記歸還並回報數辦更新清冊。</p></div>
+      </div>
+      <div class="callout amber" style="margin-top:12px"><b>遺失處理</b>：立即通報資訊組與數辦，由 MDM 啟動「遺失模式」鎖定並定位，再依校內財產程序辦理。</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>常見問題 FAQ</h2>
+    <div id="ipadFaq" style="margin-top:8px"></div>
+  </div>
+</section>
+
+<!-- ═══════════ 智慧黑板 ═══════════ -->
+<section class="view" id="view-board" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">Smart Blackboard</div>
+    <h1>水洗智慧黑板教學專區</h1>
+    <p class="lede">雲林縣自 113 年起於全縣 185 校、約 2,100 間教室導入水洗智慧黑板：中央 86 吋電容觸控大屏，兩側為水擦式黑板（水溶式粉筆＋濕抹布即擦即寫、無粉塵）。本區彙整數辦官方 20 支教學影片與保養須知，供新進教師自學。</p>
+  </div>
+
+  <div class="card">
+    <h2>官方教學影片（20 支）</h2>
+    <p class="card-sub">雲林縣數辦錄製，點標題開啟 YouTube；影片清單由 data/board-videos.js 維護</p>
+    <div class="toolbar">
+      <div class="seg" id="bvFilter" role="group" aria-label="影片分類篩選"></div>
+    </div>
+    <div id="bvList"></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <h2>新進教師建議學習順序</h2>
+      <ol class="tight">
+        <li><b>認識硬體</b>：影片 01 介紹、02 七大按鍵、17 遙控器。</li>
+        <li><b>會用上課模式</b>：影片 06 模式切換、03 電子書應用。</li>
+        <li><b>掌握教學工具</b>：影片 04 十大功能、15 側邊工作列、16 呼叫圓盤。</li>
+        <li><b>連結載具</b>：影片 07 大屏小平鏡射、08 接筆電桌機、12 多人共作四學。</li>
+        <li><b>觀摩應用</b>：影片 10、11、19 實際教學示例。</li>
+      </ol>
+      <div class="callout" style="margin-top:12px">搭配文件：「水洗智慧黑板－五功祕笈」（數辦 1130812）——檔案下載連結建置中，先洽數辦索取。</div>
+    </div>
+    <div class="card">
+      <h2>保養與使用注意事項</h2>
+      <ul class="tight">
+        <li><b>水擦黑板區</b>：只能使用<b>水溶式粉筆</b>，以擰乾的濕抹布擦拭即可再書寫；不可使用傳統粉筆與乾板擦。</li>
+        <li><b>觸控大屏</b>：以乾淨微濕軟布輕擦，嚴禁噴水、酒精直噴螢幕；避免尖銳物刮劃。</li>
+        <li><b>用眼健康</b>：字級放大、亮度適中，避免長時間連續注視大屏，適時切換板書與紙本活動。</li>
+        <li><b>電源</b>：放學依規定關機；長假由總務統一斷電。</li>
+        <li><b>異常處理</b>：畫面無訊號先確認訊源與 HDMI；觸控漂移可先重新開機，無法排除即報修。</li>
+      </ul>
+      <h3 style="margin-top:14px">報修流程</h3>
+      <p class="note">教室設備異常 → 通報校內資訊組／總務 → 無法排除者依採購合約向廠商報修（保固期內免費）→ 修復後回報數辦。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 縣購軟體 ═══════════ -->
+<section class="view" id="view-soft" role="tabpanel">
+  <div class="view-head">
+    <div class="eyebrow">Licensed Software &amp; Platforms</div>
+    <h1>縣購軟體與學習平台專區</h1>
+    <p class="lede">彙整雲林縣採購之教學軟體與常用數位學習平台：老師可以在這裡知道自己有哪些資源、怎麼登入、去哪裡學。多數平台支援「教育雲端帳號」單一登入，不需另記密碼。</p>
+    <p class="note" style="margin-top:8px"><span class="badge-demo">清單待數辦確認</span>　「縣購軟體」分類目前為常見採購項目示例，正式清單以數辦當年度公告為準（更新 data/software-list.js 即可）。</p>
+  </div>
+
+  <div class="card">
+    <h2>平台總覽</h2>
+    <p class="card-sub">點「使用教學」直達該平台教學資源；也可參考數辦彙整的<a href="https://www.canva.com/design/DAFh0VH7TTE/hEbdcb_WX9XJn9zZNpz4vw/view" target="_blank" rel="noopener">學習平台總覽簡報</a></p>
+    <div class="toolbar">
+      <div class="seg" id="softFilter" role="group" aria-label="平台分類篩選"></div>
+    </div>
+    <div id="softList"></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <h2>教育雲端帳號（OpenID）</h2>
+      <p class="note">全國師生皆有的單一帳號，一組帳號登入因材網、PaGamO、均一、學習吧等平台。新進教師開通方式：</p>
+      <ol class="tight">
+        <li>至 <a href="https://cloud.edu.tw/" target="_blank" rel="noopener">教育雲</a> 點「使用教育雲端帳號登入」。</li>
+        <li>選「縣市帳號登入」→ 雲林縣 → 以校務系統帳號驗證。</li>
+        <li>首次登入設定 @mail.edu.tw 帳號後，即可通行各學習平台。</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2>需要新平台或帳號？</h2>
+      <ul class="tight">
+        <li>縣購軟體之學校帳號數量與開通，請洽數辦（05-6341014#816）。</li>
+        <li>希望縣府採購某平台，可於年度需求調查時提出，或逕洽數辦建議。</li>
+        <li>入校研習需求（平台實作工作坊）可參考 <a href="https://srl.ntue.edu.tw/Resource#a1" target="_blank" rel="noopener">講師名錄</a> 提出申請。</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -512,6 +666,7 @@ footer{border-top:1px solid var(--hair);background:var(--surface);margin-top:20p
     <div>
       <h4>相關連結</h4>
       <ul>
+        <li><a href="https://dlo.ylc.edu.tw/" target="_blank" rel="noopener">數辦官方網站（公告與影片）</a></li>
         <li><a href="https://pads.moe.edu.tw/" target="_blank" rel="noopener">數位學習精進方案入口網</a></li>
         <li><a href="https://mdm.edu.tw/" target="_blank" rel="noopener">教育部學習載具管理系統</a></li>
         <li><a href="https://adl.edu.tw/" target="_blank" rel="noopener">教育部因材網</a></li>
@@ -537,6 +692,9 @@ footer{border-top:1px solid var(--hair);background:var(--surface);margin-top:20p
 <script src="data/obs-schedule.js"></script>
 <script src="data/mdm-usage.js"></script>
 <script src="data/relief-status.js"></script>
+<script src="data/ipad-resources.js"></script>
+<script src="data/board-videos.js"></script>
+<script src="data/software-list.js"></script>
 <script>
 "use strict";
 /* ── 資料 ─────────────────────────────── */
@@ -802,6 +960,61 @@ function hideTip() { tip.style.opacity = 0; tip.setAttribute("aria-hidden", "tru
     exportCSV("減授課繳交彙整.csv",
       ["學校", "執行節數", "支用金額(元)", "第一期領據", "第二期領據", "收支結報表", "整體狀態"],
       demo.map(d => [d.name, d.n, d.amt, d.r1 ? "已繳" : "未繳", d.r2 ? "已繳" : "未繳", d.rpt ? "已繳" : "未繳", lbl[d.st]])));
+  render();
+})();
+
+/* ── iPad 教學資源與 FAQ ──────────────── */
+(function () {
+  const cats = [...new Set(DLO.ipadLinks.map(l => l.cat))];
+  document.getElementById("ipadLinks").innerHTML = cats.map(c =>
+    `<h3 style="margin:14px 0 6px">${c}</h3><div class="doclist" style="margin-top:0">` +
+    DLO.ipadLinks.filter(l => l.cat === c).map(l =>
+      `<a class="doc" href="${l.url}" target="_blank" rel="noopener">
+        <span class="ext">WEB</span><span class="nm">${l.name}</span><span class="meta">${l.note}</span></a>`).join("") +
+    `</div>`).join("");
+  document.getElementById("ipadFaq").innerHTML = DLO.ipadFaq.map(f =>
+    `<details class="faq"><summary>${f.q}</summary><p>${f.a}</p></details>`).join("");
+})();
+
+/* ── 智慧黑板影片（分類篩選） ──────────── */
+(function () {
+  const seg = document.getElementById("bvFilter"), list = document.getElementById("bvList");
+  let f = "";
+  seg.innerHTML = `<button aria-pressed="true" data-c="">全部</button>` +
+    DLO.boardVideoCats.map(c => `<button aria-pressed="false" data-c="${c}">${c}</button>`).join("");
+  function render() {
+    const vids = DLO.boardVideos.filter(v => !f || v.cat === f);
+    list.innerHTML = `<div class="res-grid">` + vids.map(v =>
+      `<div class="res"><div class="hd"><span class="nm">${v.no}｜${v.title}</span><span class="cat-tag">${v.cat}</span></div>
+       <div class="acts"><a href="https://www.youtube.com/watch?v=${v.yt}" target="_blank" rel="noopener">▶ 觀看影片</a></div></div>`).join("") + `</div>`;
+  }
+  seg.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    f = b.dataset.c; render();
+  }));
+  render();
+})();
+
+/* ── 縣購軟體清單（分類篩選） ──────────── */
+(function () {
+  const seg = document.getElementById("softFilter"), list = document.getElementById("softList");
+  let f = "";
+  seg.innerHTML = `<button aria-pressed="true" data-c="">全部</button>` +
+    DLO.softwareCats.map(c => `<button aria-pressed="false" data-c="${c}">${c}</button>`).join("");
+  function render() {
+    const items = DLO.software.filter(s => !f || s.cat === f);
+    list.innerHTML = `<div class="res-grid">` + items.map(s =>
+      `<div class="res"><div class="hd"><span class="nm">${s.name}</span><span class="cat-tag">${s.cat}</span>` +
+      (s.confirmed ? "" : `<span class="badge-demo">待確認</span>`) +
+      `</div><p>${s.desc}</p>
+       <div class="acts"><a href="${s.url}" target="_blank" rel="noopener">前往平台 ↗</a>
+       <a href="${s.tutorial}" target="_blank" rel="noopener">使用教學</a>
+       <span class="login-tag">登入：${s.login}</span></div></div>`).join("") + `</div>`;
+  }
+  seg.querySelectorAll("button").forEach(b => b.addEventListener("click", () => {
+    seg.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    f = b.dataset.c; render();
+  }));
   render();
 })();
 

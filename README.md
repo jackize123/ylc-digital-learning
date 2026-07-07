@@ -16,6 +16,9 @@ data/
   obs-schedule.js     公開觀課入校行程（每年依附件一更新）
   mdm-usage.js        MDM 每月載具使用率（介接教育部數據前為示意）
   relief-status.js    減授課繳交彙整（可由填報後台一鍵產生）
+  ipad-resources.js   iPad 教學資源連結與 FAQ
+  board-videos.js     智慧黑板官方教學影片 20 支（YouTube ID）
+  software-list.js    縣購軟體與學習平台清單（縣購項目待數辦確認）
 backend/              填報後台（Google Apps Script，需另行部署）
   Code.gs             後台主程式（觀課填報＋減授課調查＋自動彙整＋提醒信）
   Index.html          後台網頁介面
